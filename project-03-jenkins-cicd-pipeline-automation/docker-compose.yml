@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+
+  jenkins:
+
+    image: jenkins/jenkins:lts
+
+    container_name: jenkins_server
+
+    ports:
+      - "8080:8080"
+
+  application:
+
+    build: ./app
+
+    container_name: java_application
