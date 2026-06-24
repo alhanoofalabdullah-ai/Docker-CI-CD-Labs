@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: enterprise-app
+
+spec:
+
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: enterprise-app
+
+  template:
+
+    metadata:
+      labels:
+        app: enterprise-app
+
+    spec:
+
+      containers:
+
+      - name: enterprise-app
+
+        image: enterprise-app:v1
+
+        ports:
+        - containerPort: 8080
