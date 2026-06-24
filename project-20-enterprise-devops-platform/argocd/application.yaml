@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: enterprise-platform
+
+spec:
+
+  project: default
+
+  source:
+    repoURL: https://github.com/company/platform-repo
+    targetRevision: main
+    path: kubernetes
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: enterprise-platform
