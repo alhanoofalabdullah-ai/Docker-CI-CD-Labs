@@ -1,0 +1,5 @@
+git add .
+
+git commit -m "add project 05 docker registry image management"
+
+git push
