@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: secure-java-app
+  namespace: secure-production
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: secure-java-app
+
+  template:
+
+    metadata:
+      labels:
+        app: secure-java-app
+
+    spec:
+
+      serviceAccountName: application-service-account
+
+      containers:
+
+      - name: secure-java-app
+
+        image: secure-java-app:v1
+
+        securityContext:
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
