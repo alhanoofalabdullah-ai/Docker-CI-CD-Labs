@@ -1,0 +1,46 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Build') {
+
+            steps {
+                sh './scripts/build.sh'
+            }
+        }
+
+        stage('Test') {
+
+            steps {
+                sh './scripts/test.sh'
+            }
+        }
+
+        stage('Docker Build') {
+
+            steps {
+                sh 'docker build -t devops-project-03 .'
+            }
+        }
+
+        stage('Deploy') {
+
+            steps {
+                sh './scripts/deploy.sh'
+            }
+        }
+    }
+
+    post {
+
+        success {
+            echo 'Pipeline Completed Successfully'
+        }
+
+        failure {
+            echo 'Pipeline Failed'
+        }
+    }
+}
