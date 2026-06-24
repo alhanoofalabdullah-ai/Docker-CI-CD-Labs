@@ -1,0 +1,60 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh './scripts/build.sh'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh './scripts/test.sh'
+            }
+        }
+
+        stage('Code Quality') {
+            steps {
+                sh 'sonar-scanner'
+            }
+        }
+
+        stage('Security Scan') {
+            steps {
+                sh './scripts/security-scan.sh'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh './scripts/docker-build.sh'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh './scripts/deploy.sh'
+            }
+        }
+    }
+
+    post {
+
+        success {
+            echo 'Pipeline Completed Successfully'
+        }
+
+        failure {
+            echo 'Pipeline Failed'
+        }
+    }
+}
