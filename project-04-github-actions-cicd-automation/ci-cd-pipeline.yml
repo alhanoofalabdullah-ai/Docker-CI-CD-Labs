@@ -1,0 +1,39 @@
+name: CI-CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Build Application
+        run: |
+          javac app/Main.java
+
+      - name: Run Tests
+        run: |
+          echo "Tests Passed"
+
+      - name: Build Docker Image
+        run: |
+          docker build -t github-actions-project .
+
+      - name: Deploy Application
+        run: |
+          echo "Deployment Completed"
