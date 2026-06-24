@@ -4,48 +4,47 @@
 
 This project demonstrates an enterprise log management and observability platform using the ELK Stack.
 
-ELK Stack is commonly used by DevOps, SRE, Platform Engineering, and Security teams to collect, process, store, search, and visualize application logs.
+The ELK Stack is commonly used by DevOps, SRE, Platform Engineering, and Security teams to collect, process, store, search, analyze, and visualize logs from applications and infrastructure.
 
 The stack includes:
 
 - Elasticsearch for storing and indexing logs
 - Logstash for collecting and processing logs
 - Kibana for dashboards, search, and visualization
-- Java application generating sample logs
 
 ---
 
 # Business Scenario
 
-An organization runs multiple backend applications in production.
+A company runs multiple backend services in production.
 
-The operations team needs a centralized logging platform to:
+When incidents happen, operations teams need to quickly answer:
 
-- Collect application logs
-- Search errors quickly
-- Analyze system behavior
-- Investigate incidents
-- Monitor application failures
-- Support troubleshooting
-- Improve production visibility
+- What error occurred?
+- When did it happen?
+- Which service was affected?
+- How many times did it happen?
+- Is the issue related to deployment, infrastructure, or application logic?
 
-Without centralized logging, teams waste time checking logs manually across many servers.
+Without centralized logging, teams waste time checking logs manually across servers and containers.
+
+This project solves that problem by creating a centralized log management platform.
 
 ---
 
 # Objectives
 
-- Build an ELK Stack environment
-- Collect Java application logs
-- Process logs through Logstash
+- Build an ELK Stack environment using Docker Compose
+- Collect application logs
+- Process logs using Logstash
 - Store logs in Elasticsearch
 - Visualize logs in Kibana
-- Support DevOps troubleshooting
-- Demonstrate enterprise observability practices
+- Support troubleshooting and incident analysis
+- Demonstrate production-style DevOps observability
 
 ---
 
-# ELK Stack Architecture
+# Architecture
 
 ```text
 Java Application
@@ -65,91 +64,62 @@ Kibana Dashboard
 
 ---
 
-# Log Management Workflow
-
-```text
-Application Generates Logs
-          │
-          ▼
-Logstash Reads Logs
-          │
-          ▼
-Logs Are Parsed
-          │
-          ▼
-Elasticsearch Stores Logs
-          │
-          ▼
-Kibana Visualizes Logs
-          │
-          ▼
-Operations Team Investigates Issues
-```
-
----
-
 # Core Components
 
 ## Elasticsearch
 
-Elasticsearch stores and indexes logs so they can be searched quickly.
+Elasticsearch stores and indexes application logs.
 
-Used for:
-
-- Log storage
-- Log indexing
-- Fast search
-- Querying operational data
+It allows teams to search logs quickly using filters, timestamps, keywords, services, and severity levels.
 
 ---
 
 ## Logstash
 
-Logstash processes logs before sending them to Elasticsearch.
+Logstash collects raw logs, parses them, enriches them, and sends them to Elasticsearch.
 
-Used for:
-
-- Log collection
-- Log parsing
-- Log transformation
-- Pipeline processing
+It is responsible for turning unstructured log lines into searchable log events.
 
 ---
 
 ## Kibana
 
-Kibana provides dashboards and search capabilities.
+Kibana provides dashboards and log search capabilities.
 
-Used for:
-
-- Log visualization
-- Error analysis
-- Dashboard creation
-- Incident investigation
+Teams use Kibana to investigate incidents, review application behavior, and monitor operational issues.
 
 ---
 
-## Java Application
+# Log Management Workflow
 
-The Java application generates sample operational logs.
-
-Example log types:
-
-- INFO
-- WARN
-- ERROR
-- DEBUG
+```text
+Application Generates Log
+          │
+          ▼
+Log File Created
+          │
+          ▼
+Logstash Reads Log
+          │
+          ▼
+Logstash Parses Event
+          │
+          ▼
+Elasticsearch Stores Event
+          │
+          ▼
+Kibana Visualizes Logs
+```
 
 ---
 
-# Example Logs
+# Example Log Events
 
 ```text
 2026-06-24 10:00:01 INFO  Application started successfully
-2026-06-24 10:01:15 INFO  User login request processed
-2026-06-24 10:02:42 WARN  Response time exceeded threshold
-2026-06-24 10:03:10 ERROR Database connection failed
-2026-06-24 10:04:55 INFO  Application health check completed
+2026-06-24 10:02:15 WARN  High memory usage detected
+2026-06-24 10:04:22 ERROR Database connection failed
+2026-06-24 10:05:45 INFO  User request processed
 ```
 
 ---
@@ -157,44 +127,44 @@ Example log types:
 # Example Dashboard
 
 ```text
-===== ELK LOG MANAGEMENT DASHBOARD =====
+===== ELK LOG DASHBOARD =====
 
-Total Logs: 1,250
-INFO Logs: 940
-WARN Logs: 210
-ERROR Logs: 100
+Total Logs: 15,240
+Error Logs: 128
+Warning Logs: 420
+Info Logs: 14,692
 Application Status: DEGRADED
-Incident Investigation: REQUIRED
+Last Error: Database connection failed
 ```
 
 ---
 
 # Enterprise Use Cases
 
-This project supports:
+This project is useful for:
 
+- Centralized Logging
 - Production Troubleshooting
 - Incident Investigation
-- Application Monitoring
-- Security Log Review
-- Error Analysis
-- Audit Trail Review
+- Security Monitoring
+- Application Observability
 - DevOps Operations
-- SRE Observability
+- SRE Reliability Reviews
+- Audit Log Analysis
 
 ---
 
 # Skills Demonstrated
 
-- ELK Stack
+- Docker Compose
 - Elasticsearch
 - Logstash
 - Kibana
-- Docker Compose
+- Log Processing
 - Centralized Logging
-- Log Analysis
-- DevOps Troubleshooting
-- Observability Engineering
+- Troubleshooting
+- DevOps Observability
+- Production Support
 - Incident Investigation
 
 ---
@@ -204,16 +174,16 @@ This project supports:
 | Component | Technology |
 |----------|------------|
 | Application | Java |
+| Containerization | Docker |
+| Orchestration | Docker Compose |
 | Log Processing | Logstash |
 | Log Storage | Elasticsearch |
 | Visualization | Kibana |
-| Containers | Docker |
-| Orchestration | Docker Compose |
-| Configuration | YAML / CONF |
+| Configuration | YAML |
 
 ---
 
-# Commands Used
+# Commands
 
 ## Start ELK Stack
 
@@ -253,18 +223,29 @@ http://localhost:9200
 
 ---
 
+# Expected Outcome
+
+After running the project:
+
+- Elasticsearch should be available on port 9200
+- Kibana should be available on port 5601
+- Logstash should read application logs
+- Logs should be indexed in Elasticsearch
+- Kibana should allow searching and visualizing logs
+
+---
+
 # Future Enhancements
 
 - Filebeat Integration
-- Security Logs
-- Nginx Logs
-- Spring Boot Logs
+- Docker Container Log Collection
+- Security Event Monitoring
 - Alerting Rules
+- Log Retention Policy
 - Kibana Dashboards
-- Docker Log Collection
-- Kubernetes Log Collection
-- SIEM Integration
-- Cloud Deployment
+- OpenSearch Migration
+- Kubernetes Logging
+- SIEM Use Cases
 
 ---
 
