@@ -1,0 +1,5 @@
+git add .
+
+git commit -m "add project 04 github actions cicd automation"
+
+git push
