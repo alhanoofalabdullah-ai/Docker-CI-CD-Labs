@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+
+metadata:
+  name: java-virtual-service
+
+spec:
+
+  hosts:
+    - "*"
+
+  gateways:
+    - java-gateway
+
+  http:
+
+  - route:
+
+    - destination:
+        host: java-service
+        port:
+          number: 80
