@@ -1,0 +1,10 @@
+apiVersion: telemetry.istio.io/v1alpha1
+kind: Telemetry
+
+metadata:
+  name: mesh-metrics
+
+spec:
+  metrics:
+    - providers:
+        - name: prometheus
